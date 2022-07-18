@@ -4,7 +4,7 @@ A simple docker-compose file to run a mongodb database in docker with replica se
 You will need to install [docker]('https://www.docker.com/products/docker-desktop') and [docker-compose]('https://docs.docker.com/compose/install/')
 
 ```zsh
-git clone https://github.com/dfdez/mongors.git
+git clone https://github.com/adantoscano/mongors.git
 
 cd mongors
 ```
