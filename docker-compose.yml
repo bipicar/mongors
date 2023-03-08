@@ -1,22 +1,14 @@
-version: '3.1'
+version: '3.8'
 
 services:
   mongo:
-    image: mongo:5.0
+    image: mongo:6.0.4
     hostname: ${RS:-rs0}
-    container_name: ${RS:-rs0}
+    container_name: rs0
     command: mongod --replSet ${RS:-rs0} --port ${PORT:-27017}
     restart: always
     volumes:
       - ./data/db:/data/db
+      - ./rs-init.sh:/scripts/rs-init.sh
     ports:
       - 27017:${PORT:-27017}
-  mongo_config:
-    image: mongo:5.0
-    hostname: rsc
-    container_name: rsc
-    command: config
-    volumes:
-      - ./mongo-config.sh:/bin/config
-    env_file:
-      - .env
