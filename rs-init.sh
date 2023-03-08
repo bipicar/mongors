@@ -9,7 +9,7 @@ var config = {
   _id : "$RS",
   version: 1,
   members: [
-    { _id: 0, host: "$RS:$PORT" }
+    { _id: 0, host: "$HOST:$PORT" }
   ]
 };
 rs.initiate(config, { force: true });
