@@ -7,7 +7,7 @@ A simple docker compose file to run a mongodb database in docker with replica se
 ## Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/javilobo8/mongors.git && cd mongors
+git clone https://github.com/bipicar/mongors.git && cd mongors
 ```
 2. Copy default configuration to .env file:
 ```bash
