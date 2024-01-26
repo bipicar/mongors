@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7.0.4
+    hostname: ${RS:-rs0}
+    container_name: rs0
+    command: mongod --replSet ${RS:-rs0} --port 27017
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M # Memory limit
+    volumes:
+      - ${DATA:-./data/db}:/data/db # host:container
+    ports:
+      - ${PORT:-27017}:27017 # host:container

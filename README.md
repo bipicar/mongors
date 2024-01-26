@@ -1,45 +1,47 @@
 # Documentation
-A simple docker-compose file to run a mongodb database in docker with replica set on.
-## How to run mongodb with replicaset in docker:
-You will need to install [docker]('https://www.docker.com/products/docker-desktop') and [docker-compose]('https://docs.docker.com/compose/install/')
+A simple docker compose file to run a mongodb database in docker with replica set on.
 
-```zsh
-git clone https://github.com/javilobo8/mongors.git
+## Requirements
+* Install [Docker]('https://www.docker.com/products/docker-desktop') and [docker compose]('https://docs.docker.com/compose/install/') if you don't have them already.
 
-cd mongors
+## Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/javilobo8/mongors.git && cd mongors
 ```
-Before running the containers you can add the `.env` file where you can:
-- Change de default configuration with this variables:
-  - `$RS` -> The replicas set name (Default: rs0)
-  - `$HOST` -> The replica set host (Default: 127.0.0.1)
-  - `$PORT` -> The replica set port (Default: 27017)
-
-If you want to use the default configuration just run:
-```zsh
+2. Copy default configuration to .env file:
+```bash
 cp .env.example .env
 ```
-
-Once you have all the env variables configured you can run the containers with:
-```zsh
-docker-compose up -d
-
-# You can see what the script is doing by running:
-docker-compose logs -f
+3. Apply the configuration you want to the .env file:
+  - `RS` -> The replicas set name (Default: rs0)
+  - `HOST` -> The replica set host (Default: 127.0.0.1)
+  - `PORT` -> The replica set port (Default: 27017)
+  - `DATA` -> The folder where the database information will be stored (Default: ./data/db)
+4. Start the container
+```bash
+docker compose up -d
 ```
-The first time you run the container you have to wait a few seconds and then run the following command to initialize the replica set:
-```zsh
-docker exec rs0 /scripts/rs-init.sh
+5. Initialize the replica set (Only the first time you run the container)
+```bash
+docker exec -it rs0 mongosh # This will open the mongo shell
+rs.initiate() # This will initialize the replica set
+rs.status() # This will show the replica set status
+exit # This will exit the mongo shell
 ```
-(This only has to be done the first time you run the container)
 
-## If you want to reset your database:
-```zsh
-# Stop the container
-docker-compose stop
-
-# Delete the folder with the database information
-rm -r data
-
-# Rerun the container
-docker-compose restart
+## Updating from previous versions
+If you are updating from a previous version, you will need to remove the old container and create a new one. To do so, follow these steps:
+1. Stop the container
+```bash
+docker compose down
+```
+2. Remove the container
+```bash
+docker rm rs0
+```
+3. Check mongodb version in `compose.yml` file and update it if needed
+4. Start the container
+```bash
+docker compose up -d
 ```
