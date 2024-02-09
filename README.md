@@ -25,9 +25,15 @@ docker compose up -d
 5. Initialize the replica set (Only the first time you run the container)
 ```bash
 docker exec -it rs0 mongosh # This will open the mongo shell
-rs.initiate() # This will initialize the replica set
-rs.status() # This will show the replica set status
-exit # This will exit the mongo shell
+```
+
+```javascript
+rs.initiate({
+  _id: "rs0",
+  members: [{ _id: 0, host: "127.0.0.1:27017" }]
+}) // This will initialize the replica set
+rs.status() // This will show the replica set status
+exit // This will exit the mongo shell
 ```
 
 ## Updating from previous versions
