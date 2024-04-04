@@ -36,6 +36,14 @@ rs.status() // This will show the replica set status
 exit // This will exit the mongo shell
 ```
 
+6. Dump the database (Optional)
+  * Install mongodb tools [MongoDB Tools](https://www.mongodb.com/try/download/database-tools)
+  * Run the following command to dump the database
+
+```bash
+./reset-database.sh "mongodb://user:password@remote:27017" "mongodb://localhost:27017/?replSet=rs0"
+```
+
 ## Updating from previous versions
 If you are updating from a previous version, you will need to remove the old container and create a new one. To do so, follow these steps:
 1. Stop the container

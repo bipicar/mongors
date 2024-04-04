@@ -21,7 +21,7 @@ then
     exit 1
 fi
 
-echo "This script will reset your local database. Are you sure you want to continue? (y/n)"
+echo "This script will dump the database and restore your destination. Are you sure you want to continue? (y/n)"
 read -n 1 -r
 # If response is not 'y', exit
 if [[ ! $REPLY =~ ^[Yy]$ ]]
@@ -42,6 +42,9 @@ mkdir -p $DUMP_FOLDER
 
 echo "Dumping database..."
 mongodump --uri="$SOURCE_DB_URI" --gzip --out=$DUMP_FOLDER
+
+echo "Waiting for 15 seconds..."
+sleep 15
 echo "Dumping database...done"
 
 echo "Restoring database..."
